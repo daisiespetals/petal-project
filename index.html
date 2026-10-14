@@ -1676,6 +1676,40 @@ and (max-height: 620px) {
         margin: 8px auto 14px;
     }
 
+    .language-switcher {
+    position: absolute;
+    top: 32px;
+    left: 35px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #aebfc3;
+}
+
+.language-switcher button {
+    background: transparent;
+    border: none;
+    padding: 4px 0;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.language-switcher button:hover,
+.language-switcher button.active {
+    opacity: 1;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.language-switcher span {
+    opacity: 0.5;
+}
+
 </style>
 
 </head>
@@ -1691,10 +1725,18 @@ and (max-height: 620px) {
          PETAL COUNTER
     ========================= -->
 
+    <div class="language-switcher" aria-label="Choose language">
+  <button type="button" data-lang="en">EN</button>
+  <span>·</span>
+  <button type="button" data-lang="tr">TR</button>
+  <span>·</span>
+  <button type="button" data-lang="de">DE</button>
+</div>
+
     <div class="counter-top">
 
         <span id="petalCount">0</span>
-        petals
+        <span id="petalCountLabel">petals</span>
 
     </div>
 
@@ -2028,7 +2070,8 @@ message.addEventListener("focus", () => {
 
 message.addEventListener("blur", () => {
     if (message.value === "") {
-        message.placeholder = "Write something you love...";
+        const lang = localStorage.getItem("daisyLanguage") || "en";
+message.placeholder = translations[lang].placeholder;
     }
 });
 
@@ -2118,7 +2161,7 @@ submitButton.addEventListener(
 
                 <p class="confirmation-message">
 
-                    Write a little something first.
+                   ${translations[localStorage.getItem("daisyLanguage") || "en"].empty}
 
                 </p>
 
@@ -2139,41 +2182,40 @@ submitButton.addEventListener(
                 });
 
 
+        
         if (error) {
+            console.error("Supabase error:", error);
 
-            console.error(
-                "Supabase error:",
-                error
-            );
+            const lang = localStorage.getItem("daisyLanguage") || "en";
+
+            openModal(`
+                <p class="confirmation-message">
+                    ${translations[lang].error}
+                </p>
+            `);
 
             return;
-
         }
+
 
 
         message.value = "";
 
 
-        counter.textContent =
-            "0 / 250";
+        counter.textContent = "0 / 250";
 
 
-        openModal(`
 
-            <p class="confirmation-message">
+openModal(`
+  <p class="confirmation-message">
+    ${translations[localStorage.getItem("daisyLanguage") || "en"].success}
+  </p>
 
-                Your petal is waiting to bloom.
+  <p class="confirmation-subtext">
+    ${translations[localStorage.getItem("daisyLanguage") || "en"].thanks}
+  </p>
+`);
 
-            </p>
-
-            <p class="confirmation-subtext">
-
-                Thank you for leaving
-                a little piece of love behind.
-
-            </p>
-
-        `);
 
     }
 );
@@ -2255,7 +2297,7 @@ async function showApprovedPetals() {
 
 
     const MAX_VISIBLE =
-        isMobile ? 12 : 25;
+        isMobile ? 25 : 75;
 
 
     // If there aren't enough approved petals,
@@ -2524,7 +2566,7 @@ function startPetalRotation(
 
 
     const MAX_VISIBLE =
-        isMobile ? 12 : 25;
+        isMobile ? 25 : 75;
 
 
     setInterval(
@@ -2670,6 +2712,112 @@ decorativePetals.forEach(petal => {
 
 });
 
+// ==============================
+// DAISY PETALS — LANGUAGE SYSTEM
+// ==============================
+
+const translations = {
+  en: {
+    petals: "petals",
+    heading1: "Leave a",
+    heading2: "Petal",
+    tagline: "Leave a little piece of love behind.",
+    placeholder: "Write something you love...",
+    privacy: "A little note: Your petal may be displayed publicly after review. Please don't include personal or sensitive information you wouldn't want others to see. 🌼",
+    submit: "Leave a Petal",
+    moderation: "Every petal is reviewed before it blooms.",
+    empty: "Write a little something first.",
+    success: "Your petal is waiting to bloom.",
+    error: "Something went wrong. Please try again.",
+    thanks: "Thank you for leaving a little piece of love behind.",
+    bloomDate: "This petal bloomed on"
+  },
+  tr: {
+    petals: "yaprak",
+    heading1: "Bir",
+    heading2: "Yaprak Bırak",
+    tagline: "Ardında küçük bir sevgi parçası bırak.",
+    placeholder: "Sevdiğin bir şeyi yaz...",
+    privacy: "Küçük bir not: Yaprağın incelendikten sonra herkese açık olarak gösterilebilir. Lütfen başkalarının görmesini istemeyeceğin kişisel veya hassas bilgileri paylaşma. 🌼",
+    submit: "Bir Yaprak Bırak",
+    moderation: "Her yaprak açmadan önce incelenir.",
+    empty: "Önce küçük bir şeyler yaz.",
+    success: "Yaprağın açmayı bekliyor.",
+    error: "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+    thanks: "Ardında küçük bir sevgi parçası bıraktığın için teşekkür ederiz.",
+    bloomDate: "Bu yaprak şu tarihte açtı:"
+  },
+  de: {
+    petals: "Blütenblätter",
+    heading1: "Hinterlasse ein",
+    heading2: "Blütenblatt",
+    tagline: "Hinterlasse ein kleines Stück Liebe.",
+    placeholder: "Schreib etwas, das du liebst...",
+    privacy: "Ein kleiner Hinweis: Dein Blütenblatt kann nach der Prüfung öffentlich angezeigt werden. Bitte teile keine persönlichen oder sensiblen Informationen, die andere nicht sehen sollen. 🌼",
+    submit: "Blütenblatt hinterlassen",
+    moderation: "Jedes Blütenblatt wird geprüft, bevor es erblüht.",
+    empty: "Schreib zuerst eine Kleinigkeit.",
+    success: "Dein Blütenblatt wartet darauf, aufzublühen.",
+    error: "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+    thanks: "Danke, dass du ein kleines Stück Liebe hinterlassen hast.",
+    bloomDate: "Dieses Blütenblatt erblühte am"
+  }
+};
+
+function setLanguage(lang) {
+  const t = translations[lang];
+  if (!t) return;
+
+  document.documentElement.lang = lang;
+  localStorage.setItem("daisyLanguage", lang);
+
+  document.querySelectorAll("[data-lang]").forEach(button => {
+    button.classList.toggle("active", button.dataset.lang === lang);
+    button.setAttribute("aria-pressed", button.dataset.lang === lang);
+  });
+
+  const count = document.getElementById("petalCount");
+const countLabel = document.getElementById("petalCountLabel");
+
+if (countLabel) {
+  countLabel.textContent = t.petals;
+}
+
+if (count) {
+  count.setAttribute("aria-label", t.petals);
+}
+
+  const heading = document.querySelector("h1");
+  if (heading) {
+    const spans = heading.querySelectorAll("span");
+    if (spans.length >= 2) {
+      spans[0].textContent = t.heading1;
+      spans[1].textContent = t.heading2;
+    }
+  }
+
+  const tagline = document.querySelector(".tagline");
+  if (tagline) tagline.textContent = t.tagline;
+
+  const message = document.getElementById("message");
+  if (message) message.placeholder = t.placeholder;
+
+  const privacy = document.querySelector(".privacy-note");
+  if (privacy) privacy.textContent = t.privacy;
+
+  const submit = document.getElementById("submitButton");
+  if (submit) submit.textContent = t.submit;
+
+  const moderation = document.querySelector(".moderation");
+  if (moderation) moderation.textContent = t.moderation;
+}
+
+document.querySelectorAll(".language-switcher [data-lang]").forEach(button => {
+  button.addEventListener("click", () => setLanguage(button.dataset.lang));
+});
+
+const savedLanguage = localStorage.getItem("daisyLanguage") || "en";
+setLanguage(savedLanguage);
 
 showApprovedPetals();
 
