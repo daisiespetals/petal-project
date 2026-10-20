@@ -1710,6 +1710,89 @@ and (max-height: 620px) {
     opacity: 0.5;
 }
 
+
+/* =========================
+   DAISY PETALS — SITE MENU
+========================= */
+
+.site-menu {
+    position: absolute;
+    top: 65px;
+    left: 35px;
+    z-index: 30;
+    width: 190px;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #aebfc3;
+}
+
+.menu-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #aebfc3;
+    font: inherit;
+    cursor: pointer;
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus-visible {
+    color: #8fa9af;
+}
+
+
+.menu-links {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 190px;
+    margin-top: 0;
+    padding: 7px;
+    background: rgba(250, 253, 252, 0.98);
+    border: 1px solid rgba(174, 191, 195, 0.35);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(67, 105, 115, 0.1);
+}
+
+.menu-links[hidden] {
+    display: none;
+}
+
+.menu-links a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: #35464a;
+    text-decoration: none;
+    line-height: 1.5;
+    transition: background 0.2s ease;
+}
+
+.menu-links a:hover,
+.menu-links a:focus-visible {
+    background: rgba(210, 235, 239, 0.5);
+    color: #35464a;
+    text-decoration: none;
+}
+
+
+@media (max-width: 600px) {
+    .language-switcher {
+        left: 20px;
+        top: 20px;
+    }
+
+    .site-menu {
+        left: 20px;
+        top: 52px;
+    }
+}
+
+
 </style>
 
 </head>
@@ -1731,6 +1814,25 @@ and (max-height: 620px) {
   <button type="button" data-lang="tr">TR</button>
   <span>·</span>
   <button type="button" data-lang="de">DE</button>
+</div>
+
+<div class="site-menu">
+    <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-expanded="false"
+        aria-controls="menuLinks"
+    >
+        <span class="menu-label" id="menuLabel">Explore</span>
+        <span aria-hidden="true">⌄</span>
+    </button>
+
+    <nav class="menu-links" id="menuLinks" hidden>
+        <a href="index.html" data-menu="home">Home</a>
+        <a href="notes.html" data-menu="notes">Little Notes</a>
+        <a href="about.html" data-menu="about">Behind the Petals 🌼</a>
+    </nav>
 </div>
 
     <div class="counter-top">
@@ -2730,7 +2832,11 @@ const translations = {
     success: "Your petal is waiting to bloom.",
     error: "Something went wrong. Please try again.",
     thanks: "Thank you for leaving a little piece of love behind.",
-    bloomDate: "This petal bloomed on"
+    bloomDate: "This petal bloomed on",
+    menuExplore: "Explore The Garden",
+    menuHome: "Home",
+    menuNotes: "Little Notes",
+    menuAbout: "Behind the Petals"
   },
   tr: {
     petals: "yaprak",
@@ -2745,7 +2851,11 @@ const translations = {
     success: "Yaprağın açmayı bekliyor.",
     error: "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
     thanks: "Ardında küçük bir sevgi parçası bıraktığın için teşekkür ederiz.",
-    bloomDate: "Bu yaprak şu tarihte açtı:"
+    bloomDate: "Bu yaprak şu tarihte açtı:",
+    menuExplore: "Bahçeyi Keşfet",
+    menuHome: "Ana Sayfa",
+    menuNotes: "Küçük Notlar",
+    menuAbout: "Yaprakların Ardında"
   },
   de: {
     petals: "Blütenblätter",
@@ -2760,7 +2870,11 @@ const translations = {
     success: "Dein Blütenblatt wartet darauf, aufzublühen.",
     error: "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
     thanks: "Danke, dass du ein kleines Stück Liebe hinterlassen hast.",
-    bloomDate: "Dieses Blütenblatt erblühte am"
+    bloomDate: "Dieses Blütenblatt erblühte am",
+    menuExplore: "Den Garten entdecken",
+    menuHome: "Startseite",
+    menuNotes: "Kleine Notizen",
+    menuAbout: "Hinter den Blütenblättern"
   }
 };
 
@@ -2769,6 +2883,18 @@ function setLanguage(lang) {
   if (!t) return;
 
   document.documentElement.lang = lang;
+  const menuLabel = document.getElementById("menuLabel");
+if (menuLabel) menuLabel.textContent = t.menuExplore;
+
+document.querySelectorAll("[data-menu]").forEach(link => {
+    const key = {
+        home: "menuHome",
+        notes: "menuNotes",
+        about: "menuAbout"
+    }[link.dataset.menu];
+
+    if (key && t[key]) link.textContent = t[key];
+});
   localStorage.setItem("daisyLanguage", lang);
 
   document.querySelectorAll("[data-lang]").forEach(button => {
@@ -2815,6 +2941,27 @@ if (count) {
 document.querySelectorAll(".language-switcher [data-lang]").forEach(button => {
   button.addEventListener("click", () => setLanguage(button.dataset.lang));
 });
+
+
+const menuToggle = document.getElementById("menuToggle");
+const menuLinks = document.getElementById("menuLinks");
+
+if (menuToggle && menuLinks) {
+    menuToggle.addEventListener("click", () => {
+        const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+
+        menuToggle.setAttribute("aria-expanded", String(!isExpanded));
+        menuLinks.hidden = isExpanded;
+    });
+
+    document.addEventListener("click", event => {
+        if (!event.target.closest(".site-menu")) {
+            menuLinks.hidden = true;
+            menuToggle.setAttribute("aria-expanded", "false");
+        }
+    });
+}
+
 
 const savedLanguage = localStorage.getItem("daisyLanguage") || "en";
 setLanguage(savedLanguage);

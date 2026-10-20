@@ -1,0 +1,848 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Behind the Petals | Daisy Petals</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --background: #e8f6fa;
+            --ink: #171717;
+            --muted: #66777b;
+            --line: rgba(65, 100, 110, 0.2);
+            --paper: #fffdf8;
+            --accent: #789ba5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--ink);
+            font-family: "Instrument Serif", Georgia, serif;
+            background:
+                radial-gradient(
+                    ellipse at 15% 20%,
+                    rgba(255, 255, 255, 0.75),
+                    transparent 45%
+                ),
+                radial-gradient(
+                    ellipse at 85% 70%,
+                    rgba(193, 225, 235, 0.35),
+                    transparent 48%
+                ),
+                var(--background);
+        }
+
+
+/* Behind the Petals */
+
+.about-page {
+    width: min(760px, 90%);
+    margin: 0 auto;
+    padding: 64px 0 72px;
+}
+
+.about-content {
+    width: 100%;
+}
+
+.about-intro {
+    margin-bottom: 42px;
+    text-align: center;
+}
+
+.about-intro h1 {
+    margin: 0;
+    font-size: clamp(2.8rem, 7vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -1px;
+}
+
+.about-story {
+    font-size: 1.2rem;
+    line-height: 1.85;
+}
+
+.about-story p {
+    margin: 0 0 25px;
+}
+
+.about-story strong {
+    font-weight: 400;
+}
+
+.about-signoff {
+    margin-top: 38px !important;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.about-legal {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-family: Arial, sans-serif;
+    font-size: 0.76rem;
+    line-height: 1.75;
+}
+
+.about-legal p {
+    margin: 0 0 15px;
+}
+
+@media (max-width: 600px) {
+    .about-page {
+        width: 88%;
+        padding: 42px 0 52px;
+    }
+
+    .about-intro {
+        margin-bottom: 30px;
+    }
+
+    .about-story {
+        font-size: 1.08rem;
+        line-height: 1.75;
+    }
+
+    .about-story p {
+        margin-bottom: 21px;
+    }
+
+    .about-legal {
+        margin-top: 46px;
+        font-size: 0.72rem;
+    }
+}
+
+/* Dreamy Behind the Petals page */
+.about-nav {
+    width: min(1100px, 90%);
+    margin: 0 auto;
+    padding: 26px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.about-home {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 1.35rem;
+}
+
+.language-switcher {
+    display: flex;
+    gap: 7px;
+}
+
+.language-switcher button {
+    border: none;
+    border-radius: 0;
+    padding: 4px 2px;
+    background: transparent;
+    color: #aebfc3;
+    font: 12px Arial, sans-serif;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+
+.language-switcher button:hover {
+    background: transparent;
+    transform: none;
+}
+
+.language-switcher button:hover,
+.language-switcher button.active {
+    color: inherit;
+    opacity: 1;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+
+.about-page {
+    position: relative;
+    width: min(760px, 88%);
+    margin: 0 auto;
+    padding: 65px 0 75px;
+}
+
+.about-intro {
+    text-align: center;
+    margin-bottom: 52px;
+}
+
+.about-intro h1 {
+    font-size: clamp(3rem, 7vw, 4.8rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -1px;
+}
+
+.about-story {
+    text-align: center;
+    font-size: 1.24rem;
+    line-height: 1.95;
+}
+
+.about-story p {
+    margin: 0 auto 30px;
+}
+
+.about-story p:nth-child(3),
+.about-story p:nth-child(8),
+.about-story p:nth-child(13) {
+    margin-top: 42px;
+    margin-bottom: 42px;
+}
+
+.about-story strong {
+    font-weight: 400;
+    color: #587e88;
+}
+
+.about-story em {
+    font-style: italic;
+}
+
+.about-signoff {
+    margin-top: 55px !important;
+    padding-top: 12px;
+    font-size: 1.35rem;
+}
+
+@media (max-width: 600px) {
+    .about-nav {
+        width: 90%;
+        padding: 20px 0;
+    }
+
+    .about-home {
+        font-size: 1.12rem;
+    }
+
+    .language-switcher {
+        gap: 4px;
+    }
+
+    .language-switcher button {
+        padding: 7px 9px;
+        font-size: 11px;
+    }
+
+    .about-page {
+        padding: 42px 0 55px;
+    }
+
+    .about-intro {
+        margin-bottom: 35px;
+    }
+
+    .about-story {
+    font-size: 1.1rem;
+    line-height: 1.85;
+    }
+
+    .about-story p {
+        margin-bottom: 25px;
+    }
+
+    .about-story p:nth-child(3),
+    .about-story p:nth-child(8),
+    .about-story p:nth-child(13) {
+        margin-top: 32px;
+        margin-bottom: 32px;
+    }
+}
+
+/* Modern, compact story typography */
+.about-story {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: left;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #35464a;
+}
+
+.about-story p {
+    margin: 0 0 14px;
+}
+
+.about-story strong {
+    font-weight: 600;
+    color: #456d77;
+}
+
+.about-signoff {
+    margin-top: 24px !important;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.about-story {
+    line-height: 1.6;
+}
+
+.about-story p {
+    margin-bottom: 8px;
+}
+
+.about-story p:nth-child(3),
+.about-story p:nth-child(8),
+.about-story p:nth-child(13) {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.about-signoff {
+    margin-top: 20px !important;
+}
+
+/* Shared Daisy Petals navigation */
+.site-header {
+    width: min(1100px, 90%);
+    margin: 0 auto;
+    padding: 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    position: relative;
+    z-index: 20;
+}
+
+.language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: Arial, sans-serif;
+    color: #7b9297;
+}
+
+.language-switcher button {
+    appearance: none;
+    border: 1px solid rgba(100, 140, 150, 0.3);
+    border-radius: 24px;
+    padding: 7px 12px;
+    background: rgba(255, 255, 255, 0.35);
+    color: #35464a;
+    font: 11px Arial, sans-serif;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.language-switcher button:hover,
+.language-switcher button.active {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: #789ba5;
+}
+
+.site-menu {
+    position: relative;
+    font-family: Arial, sans-serif;
+}
+
+.menu-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    border: 1px solid rgba(100, 140, 150, 0.25);
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.55);
+    color: #35464a;
+    font: 12px Arial, sans-serif;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus-visible {
+    color: #ffffff;
+}
+
+.menu-links {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 210px;
+    padding: 8px;
+    border: 1px solid rgba(100, 140, 150, 0.2);
+    border-radius: 16px;
+    background: rgba(250, 253, 252, 0.97);
+    box-shadow: 0 12px 35px rgba(67, 105, 115, 0.12);
+}
+
+.menu-links[hidden] {
+    display: none;
+}
+
+.menu-links a {
+    display: block;
+    padding: 12px 14px;
+    border-radius: 10px;
+    color: #35464a;
+    text-decoration: none;
+    font: 12px/1.5 Arial, sans-serif;
+    transition: background 0.2s ease;
+}
+
+.menu-links a:hover {
+    background: rgba(210, 235, 239, 0.5);
+}
+
+@media (max-width: 600px) {
+    .site-header {
+        width: 92%;
+        padding: 18px 0;
+        gap: 12px;
+    }
+
+    .language-switcher {
+        gap: 5px;
+    }
+
+    .language-switcher button {
+        padding: 7px 9px;
+        font-size: 10px;
+    }
+
+    .menu-toggle {
+        padding: 10px 12px;
+        font-size: 11px;
+    }
+
+    .menu-toggle span:first-child {
+        max-width: 125px;
+    }
+}
+
+
+/* Match homepage navigation colours and hover states */
+.site-header {
+    width: min(1100px, 90%);
+    margin: 0 auto;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: relative;
+    z-index: 20;
+}
+
+.language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #aebfc3;
+}
+
+.language-switcher button {
+    padding: 4px 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.language-switcher button:hover,
+.language-switcher button.active {
+    opacity: 1;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.language-switcher span {
+    opacity: 0.5;
+}
+
+.site-menu {
+    position: relative;
+    color: #aebfc3;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+}
+
+.menu-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #aebfc3;
+    font: inherit;
+    cursor: pointer;
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus-visible {
+    color: #8fa9af;
+}
+
+.menu-links {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 190px;
+    padding: 7px;
+    border: 1px solid rgba(174, 191, 195, 0.35);
+    border-radius: 10px;
+    background: rgba(250, 253, 252, 0.98);
+    box-shadow: 0 8px 24px rgba(67, 105, 115, 0.1);
+}
+
+.menu-links[hidden] {
+    display: none;
+}
+
+.menu-links a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: #35464a;
+    text-decoration: none;
+    font: 13px/1.5 Arial, sans-serif;
+    transition: background 0.2s ease;
+}
+
+.menu-links a:hover,
+.menu-links a:focus-visible {
+    background: rgba(210, 235, 239, 0.5);
+    color: #35464a;
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .site-header {
+        width: 92%;
+        gap: 12px;
+    }
+
+    .language-switcher {
+        gap: 5px;
+    }
+
+    .menu-toggle {
+        font-size: 11px;
+    }
+}
+
+
+    </style>
+</head>
+
+<body>
+
+
+
+<header class="site-header">
+    <div class="language-switcher" aria-label="Choose language">
+        <button type="button" data-lang="en">EN</button>
+        <span>·</span>
+        <button type="button" data-lang="tr">TR</button>
+        <span>·</span>
+        <button type="button" data-lang="de">DE</button>
+    </div>
+
+    <div class="site-menu">
+        <button
+            type="button"
+            class="menu-toggle"
+            id="menuToggle"
+            aria-expanded="false"
+            aria-controls="menuLinks"
+        >
+            <span id="menuLabel">Explore the Garden</span>
+            <span aria-hidden="true">⌄</span>
+        </button>
+
+        <nav class="menu-links" id="menuLinks" hidden>
+            <a href="index.html" data-menu="home">Home</a>
+            <a href="notes.html" data-menu="notes">Little Notes</a>
+            <a href="about.html" data-menu="about">Behind the Petals</a>
+        </nav>
+    </div>
+</header>
+
+
+        
+<main class="about-page">
+    <article class="about-content">
+
+        <header class="about-intro">
+            <h1 id="aboutTitle">Behind the Petals </h1>
+        </header>
+
+        <div class="about-story" id="aboutStory">
+
+            <p>Some things are too small to make a sound, but too meaningful to disappear.</p>
+
+            <p>A sentence that stayed with you. A memory you return to. A wish you carry quietly, or a kind thought you wish someone could stumble upon.</p>
+
+            <p><strong>Daisy Petals is a little corner of the internet for these things.</strong></p>
+
+            <p>The project began with a simple thought: <em>How much love can we gather in one place?</em> A place of softness for all the kind words, the memories, and the feelings that are sometimes too small to share and too precious to forget.</p>
+
+            <p>What if each one could become a petal, and all those petals could grow into something beautiful?</p>
+
+            <p>And so, this little garden began to bloom.</p>
+
+            <p>Here, you can leave a message on a digital petal - a few words of love, a fragment of a memory, a wish, or simply something kind you want the world to hear.</p>
+
+            <p><strong>Every petal is anonymous.</strong> Your words can bloom on their own, without a name, a face, or an identity attached to them.</p>
+
+            <p>No introductions, no expectations. Just a little piece of you, offered freely to the world.</p>
+
+            <p>Each message becomes a small part of a growing garden. One petal at a time, the garden fills with thoughts from different people, different places, and different corners of life.</p>
+
+            <p>You may never meet the person who reads your words. You may never know when someone finds comfort in a sentence you almost didn't write. But perhaps that's part of the beauty of it: we can leave a little kindness behind without knowing where it will land.</p>
+
+            <p>And as the petals accumulate, so does the love.</p>
+
+            <p><strong>Perhaps your words will be exactly what someone needs to find.</strong></p>
+
+            <p class="about-signoff"> <em>Leave a petal. Let it bloom.</em></p>
+
+        </div>
+
+        <footer class="about-legal" id="aboutLegal">
+
+            <p>© 2026 Daisy Petals. All rights reserved.</p>
+
+            <p>Daisy Petals is an independent creative project. The original artwork, illustrations, written content, visual design, and other original materials created for this project belong to their respective creator and may not be reproduced or redistributed without permission, except where permitted by law.</p>
+
+            <p>Messages submitted by visitors remain the responsibility of their respective authors. By submitting a message, you grant Daisy Petals permission to display it publicly on the website after moderation. No public attribution is required.</p>
+
+            <p>All messages are subject to moderation and may be declined or removed.</p>
+
+        </footer>
+
+    </article>
+
+    </main>
+
+   
+<script>
+const aboutTranslations = {
+    en: {
+        title: "Behind the Petals",
+        story: `
+            
+        <p>Some things are too small to make a sound, but too meaningful to disappear.</p>
+
+        <p>A sentence that stayed with you, a memory you return to again and again, a wish you quietly carry inside of you, or a kind thought you hope might find its way to someone by chance.</p>
+
+        <p><strong>Daisy Petals is a little website created for all of these things.</strong></p>
+
+        <p>This project began with a simple question: <em>How much love can we gather in one place?</em></p>
+
+        <p>A small and peaceful place for kind words, memories, and feelings that we sometimes cannot bear to share and sometimes cannot bear to forget.</p>
+
+        <p>What if every sentence could become a petal? What if all these petals came together to create a garden filled with beauty?</p>
+
+        <p>And so, this little garden began to bloom.</p>
+
+        <p>Here, you can leave a few words of love, a memory, a wish, or a kind thought you want the world to hear on a digital petal.</p>
+
+        <p><strong>Every petal is anonymous.</strong> Your words can exist just as they are, without needing a name, a face, or an identity.</p>
+
+        <p>Every message becomes part of this growing garden. As the petals multiply, the garden fills with thoughts from different people, different places, and faraway corners of the world.</p>
+
+        <p>You may never meet the person who reads your words. You may never know when a sentence you almost decided not to write will bring comfort to someone else.</p>
+
+        <p>But perhaps that is exactly where the beauty lies: <strong>in leaving a little kindness in the world without knowing where it will reach.</strong></p>
+
+        <p>As the petals gather, so does the love.</p>
+
+        <p><strong>Perhaps one day, a petal you leave behind will find its way to someone you have never met, at exactly the moment they need it.</strong></p>
+
+            <p class="about-signoff"> <em>Leave a petal. Let it bloom.</em></p>
+        `,
+        legal: `
+            <p>© 2026 Daisy Petals. All rights reserved.</p>
+
+            <p>Daisy Petals is an independent creative project. The original artwork, illustrations, written content, visual design, and other original materials created for this project belong to their respective creator and may not be reproduced or redistributed without permission, except where permitted by law.</p>
+
+            <p>Messages submitted by visitors remain the responsibility of their respective authors. By submitting a message, you grant Daisy Petals permission to display it publicly on the website after moderation. No public attribution is required.</p>
+
+            <p>All messages are subject to moderation and may be declined or removed.</p>
+        `
+    },
+
+    tr: {
+        title: "Yaprakların Ardında",
+        story: `
+            
+            <p>Bazı şeyler ses çıkaramayacak kadar küçüktür ama kaybolup gitmeyecek kadar anlamlıdır.</p>
+
+            <p>Mesela aklında kalan bir cümle, dönüp dönüp hatırladığın bir anı, içinde sessizce taşıdığın bir dilek ya da bir başkasının karşısına tesadüfen çıkmasını dilediğin güzel bir düşünce.</p>
+
+            <p><strong>Daisy Petals, işte tüm bunlar için üretilmiş küçük bir web sitesi.</strong></p>
+
+            <p>Bu proje aslında basit bir soruyla başladı: <em>Sevgiyi tek bir yerde ne kadar biriktirebiliriz?</em></p>
+
+            <p>Bazen paylaşmaya kıyamadığımız, bazen de unutmaya gönlümüzün el vermediği güzel sözler, anılar ve duygular için küçük ve huzurlu bir yer.</p>
+
+            <p>Ya her cümle bir yaprağa dönüşseydi? Ya bütün bu yapraklar bir araya gelip güzellikle dolu bir bahçe oluştursaydı?</p>
+
+            <p>Ve böylece bu küçük bahçe çiçek açmaya başladı.</p>
+
+            <p>Burada dijital bir yaprağa birkaç sevgi sözcüğü, bir anı, bir dilek ya da dünyanın duymasını istediğin güzel bir düşünce bırakabilirsin.</p>
+
+            <p><strong>Her yaprak anonimdir.</strong> Sözlerin bir isme, bir yüze ya da bir kimliğe ihtiyaç duymadan, yalnızca kendi hâliyle var olabilir.</p>
+
+            <p>Her mesaj, büyüyen bu bahçenin bir parçasına dönüşüyor. Yapraklar çoğaldıkça bahçe; farklı insanlardan, farklı yerlerden ve hayatın birbirinden uzak köşelerinden gelen düşüncelerle doluyor.</p>
+
+            <p>Belki sözlerini okuyacak kişiyle hiç tanışmayacaksın. Yazmaktan son anda vazgeçmek üzere olduğun bir cümlenin bir başkasına ne zaman iyi geleceğini de hiçbir zaman öğrenemeyeceksin.</p>
+
+            <p>Ama belki de güzelliği tam olarak buradadır: <strong>bıraktığımız iyiliğin nereye ulaşacağını bilmeden, dünyaya biraz nezaket bırakabilmekte.</strong></p>
+
+            <p>Yapraklar biriktikçe, sevgi de çoğalır.</p>
+
+            <p><strong>Belki bir gün, bıraktığın bir yaprak hiç tanımadığın birinin tam da ihtiyacı olan anda karşısına çıkar.</strong></p>
+
+            <p class="about-signoff"> <em>Bir yaprak bırak. Çiçek açmasına izin ver.</em></p>
+        `,
+        legal: `
+            <p>© 2026 Daisy Petals. Tüm hakları saklıdır.</p>
+
+            <p>Daisy Petals bağımsız bir yaratıcı projedir. Proje için oluşturulan özgün çizimler, illüstrasyonlar, yazılı içerikler, görsel tasarım ve diğer özgün materyaller ilgili yaratıcısına aittir. Yasaların izin verdiği durumlar dışında, izin alınmadan çoğaltılamaz veya yeniden dağıtılamaz.</p>
+
+            <p>Ziyaretçiler tarafından gönderilen mesajların sorumluluğu ilgili mesajların yazarlarına aittir. Bir mesaj göndererek, mesajın moderasyon sürecinden sonra web sitesinde herkese açık olarak yayımlanmasına Daisy Petals'a izin vermiş olursun. Bunun için adının veya kimliğinin açıklanması gerekmez.</p>
+
+            <p>Tüm mesajlar moderasyona tabidir; yayımlanmaları reddedilebilir veya daha sonra kaldırılabilir.</p>
+        `
+    },
+
+    de: {
+        title: "Hinter den Blütenblättern",
+        story: `
+        
+        <p>Manche Dinge sind zu klein, um einen Laut von sich zu geben, aber zu bedeutungsvoll, um einfach zu verschwinden.</p>
+
+        <p>Ein Satz, der dir im Gedächtnis geblieben ist, eine Erinnerung, zu der du immer wieder zurückkehrst, ein Wunsch, den du still in dir trägst, oder ein schöner Gedanke, von dem du hoffst, dass er zufällig seinen Weg zu jemandem findet.</p>
+
+        <p><strong>Daisy Petals ist eine kleine Website, die für all diese Dinge geschaffen wurde.</strong></p>
+
+        <p>Dieses Projekt begann mit einer einfachen Frage: <em>Wie viel Liebe können wir an einem Ort sammeln?</em></p>
+
+        <p>Ein kleiner, friedlicher Ort für liebe Worte, Erinnerungen und Gefühle, die wir manchmal nicht teilen möchten, weil sie uns zu kostbar sind, und manchmal nicht vergessen können, weil sie uns so viel bedeuten.</p>
+
+        <p>Was wäre, wenn jeder Satz zu einem Blütenblatt werden könnte? Was wäre, wenn all diese Blütenblätter zusammen einen Garten voller Schönheit entstehen ließen?</p>
+
+        <p>Und so begann dieser kleine Garten zu blühen.</p>
+
+        <p>Hier kannst du ein paar liebe Worte, eine Erinnerung, einen Wunsch oder einen schönen Gedanken, den du mit der Welt teilen möchtest, auf einem digitalen Blütenblatt hinterlassen.</p>
+
+        <p><strong>Jedes Blütenblatt ist anonym.</strong> Deine Worte dürfen einfach für sich stehen, ohne dass sie einen Namen, ein Gesicht oder eine Identität brauchen.</p>
+
+        <p>Jede Nachricht wird Teil dieses wachsenden Gartens. Mit jedem neuen Blütenblatt füllt sich der Garten mit Gedanken von unterschiedlichen Menschen, aus verschiedenen Orten und aus den unterschiedlichsten Ecken des Lebens.</p>
+
+        <p>Vielleicht wirst du dem Menschen, der deine Worte liest, niemals begegnen. Vielleicht wirst du nie erfahren, wann ein Satz, den du beinahe nicht geschrieben hättest, einem anderen Menschen Trost spendet.</p>
+
+        <p>Aber vielleicht liegt genau darin die Schönheit: <strong>ein wenig Freundlichkeit in der Welt zu hinterlassen, ohne zu wissen, wen sie erreichen wird.</strong></p>
+
+        <p>Und während sich die Blütenblätter sammeln, wächst auch die Liebe.</p>
+
+        <p><strong>Vielleicht erreicht eines Tages ein Blütenblatt von dir einen Menschen, den du noch nie getroffen hast – genau in dem Moment, in dem er es braucht.</strong></p>
+
+            <p class="about-signoff"> <em>Hinterlasse ein Blütenblatt. Lass es erblühen.</em></p>
+        `,
+        legal: `
+            <p>© 2026 Daisy Petals. Alle Rechte vorbehalten.</p>
+
+            <p>Daisy Petals ist ein unabhängiges kreatives Projekt. Die Originalkunstwerke, Illustrationen, schriftlichen Inhalte, das visuelle Design und alle weiteren für dieses Projekt geschaffenen Originalmaterialien gehören ihren jeweiligen Urheberinnen und Urhebern und dürfen, außer in gesetzlich zulässigen Fällen, ohne Genehmigung weder vervielfältigt noch weiterverbreitet werden.</p>
+
+            <p>Für von Besucherinnen und Besuchern eingereichte Nachrichten sind die jeweiligen Verfasserinnen und Verfasser selbst verantwortlich. Mit dem Einreichen einer Nachricht räumst du Daisy Petals das Recht ein, diese nach einer Moderationsprüfung öffentlich auf der Website anzuzeigen. Eine öffentliche Namensnennung ist nicht erforderlich.</p>
+
+            <p>Alle Nachrichten werden moderiert und können abgelehnt oder entfernt werden.</p>
+        `
+    }
+};
+
+function setAboutLanguage(language) {
+    const lang = aboutTranslations[language] ? language : "en";
+    const content = aboutTranslations[lang];
+
+    document.documentElement.lang = lang;
+    document.getElementById("aboutTitle").textContent = content.title;
+    document.getElementById("aboutStory").innerHTML = content.story;
+    document.getElementById("aboutLegal").innerHTML = content.legal;
+
+    localStorage.setItem("daisyLanguage", lang);
+}
+
+
+function updateLanguageButtons(language) {
+    document.querySelectorAll("[data-lang]").forEach(button => {
+        const isActive = button.dataset.lang === language;
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
+    });
+}
+
+document.querySelectorAll("[data-lang]").forEach(button => {
+    button.addEventListener("click", () => {
+        setAboutLanguage(button.dataset.lang);
+        updateLanguageButtons(button.dataset.lang);
+    });
+});
+
+const savedLanguage = localStorage.getItem("daisyLanguage") || "en";
+setAboutLanguage(savedLanguage);
+updateLanguageButtons(savedLanguage);
+
+
+const menuToggle = document.getElementById("menuToggle");
+const menuLinks = document.getElementById("menuLinks");
+
+if (menuToggle && menuLinks) {
+    menuToggle.addEventListener("click", () => {
+        const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+
+        menuToggle.setAttribute("aria-expanded", String(!isOpen));
+        menuLinks.hidden = isOpen;
+    });
+
+    document.addEventListener("click", event => {
+        if (!event.target.closest(".site-menu")) {
+            menuLinks.hidden = true;
+            menuToggle.setAttribute("aria-expanded", "false");
+        }
+    });
+}
+
+
+</script>
+</body>
+</html>

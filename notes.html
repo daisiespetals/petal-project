@@ -1,0 +1,800 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Little Notes | Daisy Petals</title>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap" rel="stylesheet">
+
+   
+<style>
+:root {
+    --background: #e8f6fa;
+    --ink: #171717;
+    --muted: #66777b;
+    --line: rgba(65, 100, 110, 0.2);
+    --paper: #fffdf7;
+    --paper-warm: #f8f1e4;
+    --paper-pink: #f7e9e3;
+    --paper-green: #edf1e5;
+    --accent: #789ba5;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--ink);
+    font-family: "Instrument Serif", Georgia, serif;
+    background:
+        radial-gradient(
+            ellipse at 15% 20%,
+            rgba(255, 255, 255, 0.75),
+            transparent 45%
+        ),
+        radial-gradient(
+            ellipse at 85% 70%,
+            rgba(193, 225, 235, 0.35),
+            transparent 48%
+        ),
+        #e8f6fa;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button {
+    font-family: inherit;
+}
+
+
+/* HEADER */
+
+.site-header {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 76px;
+    padding: 20px 5%;
+    border-bottom: 1px solid var(--line);
+}
+
+.language-switcher {
+    position: absolute;
+    top: 27px;
+    left: 5%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #aebfc3;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+.language-switcher button {
+    padding: 4px 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.language-switcher button:hover,
+.language-switcher button.active {
+    opacity: 1;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.language-switcher span {
+    opacity: 0.5;
+}
+
+.site-menu {
+    position: relative;
+    color: #aebfc3;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+}
+
+.menu-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: #aebfc3;
+    font: inherit;
+    cursor: pointer;
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus-visible {
+    color: #8fa9af;
+}
+
+.menu-links {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 30;
+    min-width: 190px;
+    padding: 7px;
+    background: rgba(250, 253, 252, 0.98);
+    border: 1px solid rgba(174, 191, 195, 0.35);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(67, 105, 115, 0.1);
+}
+
+.menu-links[hidden] {
+    display: none;
+}
+
+.menu-links a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: #35464a;
+    text-decoration: none;
+    line-height: 1.5;
+    transition: background 0.2s ease;
+}
+
+.menu-links a:hover,
+.menu-links a:focus-visible {
+    background: rgba(210, 235, 239, 0.5);
+    color: #35464a;
+    text-decoration: none;
+}
+
+
+
+/* PAGE INTRODUCTION */
+
+.notes-page {
+    width: min(1120px, 92%);
+    margin: 0 auto;
+    padding: 55px 0 70px;
+}
+
+.notes-intro {
+    max-width: 610px;
+    margin: 0 auto 55px;
+    text-align: center;
+}
+
+
+.notes-intro h1 {
+    margin: 0;
+    font-size: 82px;
+    line-height: 0.95;
+    font-weight: 400;
+}
+
+.notes-intro p {
+    max-width: 700px;
+    margin: 62px auto 0;
+    color: #555;
+    font-size: 21px;
+    line-height: 1.3;
+}
+
+
+/* PAPER NOTE COLLAGE */
+
+
+/* Little Notes — clean, puzzle-like layout */
+
+
+.notes-collection {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    align-items: start;
+}
+
+.notes-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+}
+
+@media (max-width: 900px) {
+    .notes-collection {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .notes-collection {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .notes-column {
+        gap: 8px;
+    }
+}
+
+.note-card {
+    background: #fffdf8;
+    border: 1px solid rgba(120, 120, 110, 0.16);
+    border-radius: 5px;
+    box-shadow: none;
+    transform: none;
+    padding: 18px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.note-message {
+    font-size: 17px;
+    line-height: 1.45;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.note-date {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.4;
+    color: #829197;
+    margin: 0;
+}
+
+.note-flower {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .notes-collection {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .notes-collection {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .note-card {
+        padding: 13px;
+    }
+
+    .note-message {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .note-date {
+        font-size: 10px;
+    }
+}
+
+
+/* LOAD MORE */
+
+.load-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 52px;
+}
+
+#loadMoreButton {
+    padding: 13px 24px;
+    border: 1px solid rgba(65, 100, 110, 0.35);
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.4);
+    color: var(--ink);
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition:
+        background 180ms ease,
+        transform 180ms ease;
+}
+
+#loadMoreButton:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
+}
+
+#loadMoreButton:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+#notesStatus {
+    min-height: 24px;
+    margin: 24px 0 0;
+    color: var(--muted);
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* RESPONSIVE LAYOUT */
+
+@media (max-width: 800px) {
+    .notes-collection {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px 20px;
+    }
+
+    .notes-page {
+        padding-top: 42px;
+    }
+
+    .note-card {
+        min-height: 205px;
+        padding: 25px 20px;
+    }
+}
+
+@media (max-width: 520px) {
+    .site-header {
+        min-height: 68px;
+        padding: 16px 5%;
+    }
+
+    .site-header {
+        gap: 18px;
+    }
+
+    .site-menu {
+        font-size: 11px;
+    }
+
+    .menu-links {
+        width: 190px;
+    }
+
+    .notes-page {
+        width: 90%;
+        padding-top: 35px;
+    }
+
+    .notes-intro {
+        margin-bottom: 38px;
+    }
+
+    .notes-intro p {
+        font-size: 1.08rem;
+    }
+
+    .notes-collection {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        max-width: 390px;
+        margin: 0 auto;
+    }
+
+    .note-card {
+        min-height: 175px;
+        padding: 27px 25px;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .note-card,
+    #loadMoreButton {
+        transition: none;
+    }
+}
+
+
+/* Fix the mobile notes layout */
+
+
+@media (max-width: 600px) {
+    .notes-collection {
+        display: flex !important;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .notes-column {
+        display: contents;
+    }
+
+    .note-card {
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 0;
+        margin: 0;
+        padding: 16px;
+    }
+
+    .note-message {
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 1.45;
+    }
+
+    .note-date {
+        font-size: 11px;
+    }
+}
+
+.note-flower {
+    display: none !important;
+}
+
+</style>
+
+</head>
+
+<body>
+
+   
+<!-- Sayfa başlığı -->
+<header class="site-header">
+
+    <div class="language-switcher" aria-label="Choose language">
+        <button type="button" data-lang="en">EN</button>
+        <span>·</span>
+        <button type="button" data-lang="tr">TR</button>
+        <span>·</span>
+        <button type="button" data-lang="de">DE</button>
+    </div>
+
+    <div class="site-menu">
+        <button
+            type="button"
+            class="menu-toggle"
+            id="menuToggle"
+            aria-expanded="false"
+            aria-controls="menuLinks"
+        >
+            <span id="menuLabel">Explore the Garden</span>
+            <span aria-hidden="true">⌄</span>
+        </button>
+
+        <nav class="menu-links" id="menuLinks" hidden>
+            <a href="index.html" data-menu="home">Home</a>
+            <a href="notes.html" data-menu="notes">Little Notes</a>
+            <a href="about.html" data-menu="about">Behind the Petals</a>
+        </nav>
+    </div>
+
+</header>
+
+
+
+
+   
+
+    <!-- Little Notes sayfası -->
+    <main class="notes-page">
+
+        <section class="notes-intro">
+        <h1 id="notesTitle">Little Notes</h1>
+
+<p id="notesDescription">
+    A collection of small thoughts, kind words,
+    quiet wishes and meaningful moments,
+    left here for anyone who might need them.
+</p>
+        </section>
+
+        <!-- Onaylanmış mesajlar burada gösterilecek -->
+        <section
+            class="notes-collection"
+            id="notesCollection"
+            aria-label="Little Notes"
+        >
+        </section>
+
+        <!-- Daha fazla not yükleme düğmesi -->
+        <div class="load-more-container">
+            <button
+                type="button"
+                id="loadMoreButton"
+                hidden
+            >
+                Discover more petals
+            </button>
+        </div>
+
+        <!-- Yükleme ve boş koleksiyon mesajları -->
+        <p id="notesStatus" role="status" aria-live="polite"></p>
+
+    </main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+       
+<script>
+
+    // ==============================
+// SUPABASE CONNECTION
+// ==============================
+
+const SUPABASE_URL = "https://nqnpbhweatfkqiitqhze.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_SLzJT4uryKV0LXiTfdt3YQ_5BtQVJFl";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+// ==============================
+// DAISY PETALS — MENU
+// ==============================
+
+const menuToggle = document.getElementById("menuToggle");
+const menuLinks = document.getElementById("menuLinks");
+
+if (menuToggle && menuLinks) {
+    menuToggle.addEventListener("click", () => {
+        const isExpanded =
+            menuToggle.getAttribute("aria-expanded") === "true";
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            String(!isExpanded)
+        );
+
+        menuLinks.hidden = isExpanded;
+    });
+
+    document.addEventListener("click", event => {
+        if (!event.target.closest(".site-menu")) {
+            menuLinks.hidden = true;
+            menuToggle.setAttribute("aria-expanded", "false");
+        }
+    });
+}
+
+
+const notesTranslations = {
+    en: {
+        explore: "Explore the Garden",
+        home: "Home",
+        notes: "Little Notes",
+        about: "Behind the Petals",
+        title: "Little Notes",
+        description: "A collection of small thoughts, kind words, quiet wishes and meaningful moments, left here for anyone who might need them.",
+        loadMore: "Discover more petals"
+    },
+    tr: {
+        explore: "Bahçeyi Keşfet",
+        home: "Ana Sayfa",
+        notes: "Küçük Notlar",
+        about: "Yaprakların Ardında",
+        title: "Küçük Notlar",
+        description: "Küçük düşüncelerin, güzel sözlerin, sessiz dileklerin ve anlamlı anıların, belki de onlara ihtiyacı olan biri için bırakıldığı bir koleksiyon.",
+        loadMore: "Daha fazla yaprak keşfet"
+    },
+    de: {
+        explore: "Den Garten entdecken",
+        home: "Startseite",
+        notes: "Kleine Notizen",
+        about: "Hinter den Blütenblättern",
+        title: "Kleine Notizen",
+        description: "Eine Sammlung kleiner Gedanken, lieber Worte, stiller Wünsche und bedeutungsvoller Momente – für alle, die sie vielleicht brauchen.",
+        loadMore: "Weitere Blütenblätter entdecken"
+    }
+};
+
+function setNotesLanguage(lang) {
+    const language = notesTranslations[lang] ? lang : "en";
+    const t = notesTranslations[language];
+
+    document.documentElement.lang = language;
+    localStorage.setItem("daisyLanguage", language);
+
+    document.getElementById("menuLabel").textContent = t.explore;
+    document.getElementById("notesTitle").textContent = t.title;
+    document.getElementById("notesDescription").textContent = t.description;
+    document.getElementById("loadMoreButton").textContent = t.loadMore;
+
+    document.querySelectorAll("[data-menu]").forEach(link => {
+        const key = link.dataset.menu;
+        if (t[key]) link.textContent = t[key];
+    });
+
+    document.querySelectorAll("[data-lang]").forEach(button => {
+        const active = button.dataset.lang === language;
+        button.classList.toggle("active", active);
+
+        if (active) {
+            button.setAttribute("aria-current", "true");
+        } else {
+            button.removeAttribute("aria-current");
+        }
+    });
+}
+
+document.querySelectorAll(".language-switcher [data-lang]").forEach(button => {
+    button.addEventListener("click", () => {
+        setNotesLanguage(button.dataset.lang);
+    });
+});
+
+setNotesLanguage(localStorage.getItem("daisyLanguage") || "en");
+
+
+const DESKTOP_PAGE_SIZE = 24;
+const MOBILE_PAGE_SIZE = 8;
+
+function getPageSize() {
+    return window.matchMedia("(max-width: 600px)").matches
+        ? MOBILE_PAGE_SIZE
+        : DESKTOP_PAGE_SIZE;
+}
+
+let notesOffset = 0;
+let notesLoading = false;
+let notesHaveMore = true;
+
+const notesCollection = document.getElementById("notesCollection");
+
+let noteColumns = [];
+
+function setupNoteColumns() {
+    const columnCount = window.matchMedia("(max-width: 600px)").matches
+        ? 2
+        : window.matchMedia("(max-width: 900px)").matches
+            ? 3
+            : 4;
+
+    notesCollection.innerHTML = "";
+    noteColumns = [];
+
+    for (let i = 0; i < columnCount; i++) {
+        const column = document.createElement("div");
+        column.className = "notes-column";
+        notesCollection.appendChild(column);
+        noteColumns.push(column);
+    }
+}
+
+setupNoteColumns();
+
+const loadMoreButton = document.getElementById("loadMoreButton");
+const notesStatus = document.getElementById("notesStatus");
+
+async function loadNotes() {
+    if (notesLoading || !notesHaveMore) return;
+
+    notesLoading = true;
+    loadMoreButton.disabled = true;
+
+    const language = localStorage.getItem("daisyLanguage") || "en";
+    const messages = {
+        en: {
+            loading: "Gathering petals...",
+            empty: "No petals have bloomed here yet. Be the first to leave one.",
+            end: "You've reached the end of this little collection.",
+            error: "The petals couldn't be loaded. Please try again later."
+        },
+        tr: {
+            loading: "Yapraklar toplanıyor...",
+            empty: "Burada henüz hiçbir yaprak açmadı. İlk yaprağı sen bırak.",
+            end: "Bu küçük koleksiyonun sonuna ulaştın.",
+            error: "Yapraklar yüklenemedi. Lütfen daha sonra tekrar dene."
+        },
+        de: {
+            loading: "Blütenblätter werden gesammelt...",
+            empty: "Hier ist noch kein Blütenblatt erblüht. Hinterlasse das erste.",
+            end: "Du hast das Ende dieser kleinen Sammlung erreicht.",
+            error: "Die Blütenblätter konnten nicht geladen werden. Bitte versuche es später erneut."
+        }
+    };
+
+    const t = messages[language] || messages.en;
+    notesStatus.textContent = t.loading;
+
+    try {
+        const { data, error, count } = await supabaseClient
+            .from("petals")
+            .select("message, created_at", { count: "exact" })
+            .eq("approved", true)
+            .is("deleted_at", null)
+            .order("created_at", { ascending: false })
+            .range(notesOffset, notesOffset + getPageSize() - 1);
+
+        if (error) throw error;
+
+        if (notesOffset === 0 && (!data || data.length === 0)) {
+            notesStatus.textContent = t.empty;
+            loadMoreButton.hidden = true;
+            notesHaveMore = false;
+            return;
+        }
+
+        data.forEach((petal) => {
+            const card = document.createElement("article");
+            card.className = "note-card";
+
+            const message = document.createElement("p");
+            message.className = "note-message";
+            message.textContent = petal.message;
+
+            const date = document.createElement("p");
+            date.className = "note-date";
+
+            const createdAt = new Date(petal.created_at);
+            const locale = {
+                en: "en-GB",
+                tr: "tr-TR",
+                de: "de-DE"
+            }[language] || "en-GB";
+
+            date.textContent = createdAt.toLocaleDateString(locale, {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            });
+
+          card.append(message, date);
+
+            if (window.matchMedia("(max-width: 600px)").matches) {
+                notesCollection.appendChild(card);
+            } else {
+                const shortestColumn = noteColumns.reduce((shortest, column) =>
+                    column.getBoundingClientRect().height <=
+                    shortest.getBoundingClientRect().height
+                        ? column
+                        : shortest
+                );
+
+                shortestColumn.appendChild(card);
+            }
+        });
+
+        notesOffset += data.length;
+        notesHaveMore = count !== null
+            ? notesOffset < count
+            : data.length === getPageSize();
+
+        loadMoreButton.hidden = !notesHaveMore;
+        notesStatus.textContent = notesHaveMore ? "" : t.end;
+
+    } catch (error) {
+        console.error("Error loading petals:", error);
+        notesStatus.textContent = t.error;
+        loadMoreButton.hidden = false;
+    } finally {
+        notesLoading = false;
+        loadMoreButton.disabled = false;
+    }
+}
+
+loadMoreButton.addEventListener("click", loadNotes);
+loadNotes();
+
+
+</script>
+
+</body>
+</html>
