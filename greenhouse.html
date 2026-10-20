@@ -1,21 +1,32 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Petal Project — Admin</title>
+    <title>Petal Project — Greenhouse</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap"
-    rel="stylesheet"
->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
 
-<style>
+    <style>
+
+:root {
+    --sky: #e8f6fa;
+    --ink: #29383d;
+    --muted: #73838a;
+    --green: #dcebd8;
+    --pink: #fbe5eb;
+    --blue: #dcebf1;
+    --paper: #fffefa;
+    --line: #d9e8ec;
+}
 
 * {
     box-sizing: border-box;
@@ -24,889 +35,1124 @@
 body {
     margin: 0;
     min-height: 100vh;
+    background: var(--sky);
+    color: var(--ink);
+    font-family: Inter, Arial, sans-serif;
+    font-size: 14px;
+    padding: clamp(16px, 4vw, 52px);
+}
 
-    background: #e8f6fa;
-    color: #171717;
-
-    font-family:
-        "Instrument Serif",
-        Georgia,
-        serif;
-
-    padding: 60px;
+main {
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
 h1 {
-    font-size: 56px;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: clamp(38px, 5vw, 54px);
     font-weight: 400;
-
-    margin: 0 0 10px;
+    line-height: 1.05;
+    margin: 0 0 8px;
 }
 
 .subtitle {
-    font-size: 18px;
-    color: #777;
-
-    margin-bottom: 60px;
-}
-
-.section {
-    max-width: 850px;
-    margin-bottom: 70px;
-}
-
-.section-title {
-    font-size: 32px;
-    font-weight: 400;
-
-    margin: 0 0 25px;
-}
-
-.section-description {
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    color: #888;
-
+    color: var(--muted);
+    font-size: 13px;
     margin-bottom: 25px;
 }
 
-.petal-card {
-    background: white;
-
-    border-radius: 20px;
-
-    padding: 25px;
-
-    margin-bottom: 20px;
-
-    box-shadow:
-        2px 4px 8px rgba(0,0,0,.08);
+.toolbar {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
 }
 
-.message {
-    font-size: 22px;
-    line-height: 1.4;
-
-    margin-bottom: 15px;
+.search-wrap {
+    flex: 1 1 220px;
 }
 
-.date {
-    font-family: Arial, sans-serif;
-
-    font-size: 12px;
-
-    color: #999;
-
-    margin-bottom: 20px;
+input,
+select {
+    min-height: 41px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: var(--paper);
+    padding: 10px 12px;
+    font: 13px Inter, Arial, sans-serif;
+    color: var(--ink);
+    max-width: 100%;
 }
 
-.deleted-date {
-    font-family: Arial, sans-serif;
-
-    font-size: 12px;
-
-    color: #999;
-
-    margin-bottom: 20px;
+input {
+    width: 100%;
 }
 
 button {
-    border: none;
-
-    border-radius: 25px;
-
-    padding: 10px 22px;
-
-    font-family:
-        "Instrument Serif",
-        Georgia,
-        serif;
-
-    font-size: 16px;
-
+    font: 500 12px Inter, Arial, sans-serif;
+    border: 0;
+    border-radius: 10px;
+    padding: 10px 12px;
+    min-height: 39px;
     cursor: pointer;
-
-    margin-right: 8px;
+    color: var(--ink);
 }
 
-.approve {
-    background: #d7e6d3;
+button:disabled {
+    opacity: 0.5;
+    cursor: wait;
 }
 
-.approve:hover {
-    background: #cddfc9;
+.refresh,
+.pagination button {
+    background: var(--paper);
+    border: 1px solid var(--line);
 }
 
-.delete {
-    background: #fbe5eb;
+.tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #cbdfe5;
+    padding-bottom: 10px;
+    margin-bottom: 16px;
 }
 
-.delete:hover {
-    background: #f5d5de;
+.tab {
+    background: transparent;
+    color: #66777d;
+    border: 1px solid transparent;
 }
 
-.restore {
-    background: #dce9ef;
-}
-
-.restore:hover {
-    background: #d0e1e8;
-}
-
-.permanent-delete {
-    background: #eee5e5;
-}
-
-.permanent-delete:hover {
-    background: #e6d9d9;
-}
-
-.empty {
-    color: #888;
-
-    font-size: 20px;
-
-    padding: 10px 0;
+.tab[aria-selected="true"] {
+    background: var(--paper);
+    border-color: var(--line);
 }
 
 .count {
-    font-family: Arial, sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    margin-left: 4px;
+}
 
-    font-size: 13px;
+.notice {
+    display: none;
+    padding: 12px;
+    border-radius: 11px;
+    margin-bottom: 12px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-size: 12px;
+}
 
-    color: #999;
+.notice.show {
+    display: block;
+}
 
-    margin-left: 8px;
+.error {
+    background: #fff0f0;
+    color: #843b3b;
+}
+
+.info {
+    background: var(--paper);
+    color: #61737a;
 }
 
 .warning {
-    background: #fff8e8;
-
-    border-radius: 15px;
-
-    padding: 15px 18px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 13px;
-
-    color: #777;
-
-    margin-bottom: 25px;
+    font-size: 12px;
+    color: #6d7779;
+    line-height: 1.5;
+    margin: 0 0 13px;
 }
 
-@media (max-width: 800px) {
+.list {
+    display: grid;
+    gap: 8px;
+}
 
+.petal-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    background: var(--paper);
+    border: 1px solid #e2ecee;
+    border-radius: 14px;
+    padding: 13px 14px;
+    min-width: 0;
+}
+
+.message {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 19px;
+    line-height: 1.35;
+    font-weight: 400;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.meta {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+    line-height: 1.45;
+}
+
+.actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.approve {
+    background: var(--green);
+}
+
+.delete {
+    background: var(--pink);
+}
+
+.restore {
+    background: var(--blue);
+}
+
+.permanent-delete {
+    background: #f0e4e4;
+}
+
+.empty {
+    padding: 25px;
+    text-align: center;
+    color: var(--muted);
+    background: #ffffff80;
+    border-radius: 13px;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.page-info {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid #789aa6;
+    outline-offset: 2px;
+}
+
+/* Mobile layout */
+
+@media (max-width: 620px) {
     body {
-        padding: 30px 20px;
+        padding: 22px 13px;
     }
 
-    h1 {
-        font-size: 44px;
+    .search-wrap {
+        flex-basis: 100%;
     }
 
-    .section-title {
-        font-size: 28px;
+    .toolbar select {
+        flex: 1;
     }
 
+    .tab {
+        flex: 1 1 28%;
+        padding: 9px 5px;
+        font-size: 11px;
+    }
+
+    .petal-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 9px;
+        padding: 12px;
+    }
+
+    .message {
+        font-size: 18px;
+    }
+
+    .actions {
+        justify-content: flex-start;
+    }
+
+    .actions button {
+        flex: 1 1 auto;
+    }
 }
 
-</style>
+    </style>
 </head>
 
-
 <body>
+<main>
 
-<h1>Petal Project</h1>
+    <h1>Petal Project</h1>
 
-<div class="subtitle">
-    Petal moderation
-</div>
-
-
-<!-- ========================= -->
-<!-- PENDING -->
-<!-- ========================= -->
-
-<section class="section">
-
-    <h2 class="section-title">
-        Petals waiting to bloom
-        <span
-            class="count"
-            id="pendingCount"
-        ></span>
-    </h2>
-
-    <div
-        class="petals"
-        id="pendingPetals"
-    ></div>
-
-</section>
-
-
-<!-- ========================= -->
-<!-- APPROVED -->
-<!-- ========================= -->
-
-<section class="section">
-
-    <h2 class="section-title">
-        Approved petals
-        <span
-            class="count"
-            id="approvedCount"
-        ></span>
-    </h2>
-
-    <div class="section-description">
-        All approved petals are stored here.
-        The public website only displays a rotating selection.
+    <div class="subtitle">
+        Greenhouse · A quiet place to care for the petals
     </div>
 
-    <div
-        class="petals"
-        id="approvedPetals"
-    ></div>
+    <!-- Search, sorting and refresh -->
+    <div class="toolbar">
 
-</section>
+        <label class="search-wrap">
+            <span hidden>Search messages</span>
 
+            <input
+                id="search"
+                type="search"
+                placeholder="Search messages…"
+                autocomplete="off"
+            >
+        </label>
 
-<!-- ========================= -->
-<!-- RECENTLY DELETED -->
-<!-- ========================= -->
+        <select id="sort" aria-label="Sort by date">
+            <option value="desc">Newest first</option>
+            <option value="asc">Oldest first</option>
+        </select>
 
-<section class="section">
+        <button
+            id="refresh"
+            class="refresh"
+            type="button"
+        >
+            ↻ Refresh
+        </button>
 
-    <h2 class="section-title">
-        Recently deleted
-        <span
-            class="count"
-            id="deletedCount"
-        ></span>
-    </h2>
-
-    <div class="warning">
-        Deleted petals are kept for 72 hours.
-        After that they are permanently removed.
     </div>
 
+    <!-- Status and error messages -->
     <div
-        class="petals"
-        id="deletedPetals"
+        id="notice"
+        class="notice"
+        role="status"
+        aria-live="polite"
     ></div>
 
-</section>
+    <!-- Three tabs -->
+    <div
+        class="tabs"
+        role="tablist"
+        aria-label="Petal status"
+    >
 
+        <button
+            class="tab"
+            role="tab"
+            aria-selected="true"
+            data-tab="approved"
+        >
+            Approved
+            <span class="count" id="count-approved">(—)</span>
+        </button>
+
+        <button
+            class="tab"
+            role="tab"
+            aria-selected="false"
+            data-tab="deleted"
+        >
+            Deleted
+            <span class="count" id="count-deleted">(—)</span>
+        </button>
+
+        <button
+            class="tab"
+            role="tab"
+            aria-selected="false"
+            data-tab="pending"
+        >
+            Waiting to bloom
+            <span class="count" id="count-pending">(—)</span>
+        </button>
+
+    </div>
+
+    <!-- Deleted-message recovery information -->
+    <p
+        class="warning"
+        id="deleted-warning"
+        hidden
+    >
+        Deleted petals can be restored for 72 hours after deletion.
+        After that window, they may be permanently removed by the
+        existing cleanup process.
+    </p>
+
+    <!-- Messages will appear here -->
+    <section
+        id="petal-list"
+        class="list"
+        role="tabpanel"
+        aria-live="polite"
+    ></section>
+
+    <!-- Pagination -->
+    <nav
+        class="pagination"
+        aria-label="Message pages"
+    >
+
+        <button id="previous" type="button">
+            ← Previous
+        </button>
+
+        <span class="page-info" id="page-info">
+            Page 1 of 1
+        </span>
+
+        <button id="next" type="button">
+            Next →
+        </button>
+
+    </nav>
+
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+    // Your existing Daisy Petals Supabase project
+    const SUPABASE_URL =
+        "https://nqnpbhweatfkqiitqhze.supabase.co";
 
-const SUPABASE_URL = "https://nqnpbhweatfkqiitqhze.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_SLzJT4uryKV0LXiTfdt3YQ_5BtQVJFl";
+    const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_SLzJT4uryKV0LXiTfdt3YQ_5BtQVJFl";
 
-const supabaseClient = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-);
+    const db = supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
-/* =========================
-   ADMIN LOGIN
-========================= */
+    // Pagination and recovery settings
+    const PAGE_SIZE = 20;
+    const TRASH_MS = 72 * 60 * 60 * 1000;
 
-async function requireAdminLogin() {
+    // Current admin-page state
+    const state = {
+        tab: "approved",
 
-    const {
-        data: { session }
-    } = await supabaseClient.auth.getSession();
+       pages: { approved: 0, deleted: 0, pending: 0, search: 0 },
 
-    if (!session) {
-        window.location.href = "login.html";
-        return false;
+        counts: {
+            approved: null,
+            deleted: null,
+            pending: null
+        },
+
+        search: "",
+        searchMode: false,
+        searchCount: 0,
+        sort: "desc",
+        busy: false,
+        actionBusy: false
+    };
+
+    // Connect JavaScript to the HTML elements
+    const list = document.getElementById("petal-list");
+    const notice = document.getElementById("notice");
+
+    // Show a status or error message
+    function showNotice(message, type = "info") {
+        notice.textContent = message;
+        notice.className = "notice show " + type;
     }
 
-    return true;
+    // Clear the status message
+    function clearNotice() {
+        notice.textContent = "";
+        notice.className = "notice";
+    }
+
+    // Safely display visitor-submitted text
+    function escapeHTML(value) {
+        const element = document.createElement("div");
+        element.textContent = String(value ?? "");
+        return element.innerHTML;
+    }
+
+    // Check whether an admin session exists
+    async function requireAdminLogin() {
+        try {
+            const { data, error } = await db.auth.getSession();
+
+            if (error) {
+                throw error;
+            }
+
+            if (!data.session) {
+                window.location.href = "login.html";
+                return false;
+            }
+
+            return true;
+
+        } catch (error) {
+            console.error("Admin login check failed:", error);
+
+            showNotice(
+                "Could not verify your admin session. Please sign in again.",
+                "error"
+            );
+
+            return false;
+        }
+    }
+
+    // Apply the selected tab's status filter
+    function applyStatusFilter(query, tab) {
+        if (tab === "approved") {
+            return query
+                .eq("approved", true)
+                .is("deleted_at", null);
+        }
+
+        if (tab === "pending") {
+            return query
+                .eq("approved", false)
+                .is("deleted_at", null);
+        }
+
+        return query.not("deleted_at", "is", null);
+    }
+
+    // Format dates for display
+    function formatDate(value) {
+        const date = new Date(value);
+
+        return Number.isNaN(date.getTime())
+            ? "Date unavailable"
+            : date.toLocaleString();
+    }
+
+    // Fetch the exact count for a tab, including the search filter
+    
+async function fetchCount(tab) {
+    const query = applyStatusFilter(
+        db.from("petals").select("id", {
+            count: "exact",
+            head: true
+        }),
+        tab
+    );
+
+    const { count, error } = await query;
+
+    if (error) {
+        throw error;
+    }
+
+    return count ?? 0;
 }
 
-/* =========================================
-   STORAGE
-========================================= */
 
-async function getPetals() {
-
-    const { data, error } =
-        await supabaseClient
+    // Fetch only the current page of messages
+    
+    async function fetchCurrentPage() {
+        let query = db
             .from("petals")
-            .select("*")
+            .select("*", { count: "exact" });
+
+        if (!state.searchMode) {
+            query = applyStatusFilter(query, state.tab);
+        }
+
+        if (state.search.trim()) {
+            query = query.ilike(
+                "message",
+                "%" + state.search.trim() + "%"
+            );
+        }
+
+        const offset = state.searchMode
+            ? state.pages.search * PAGE_SIZE
+            : state.pages[state.tab] * PAGE_SIZE;
+
+        query = query
             .order("created_at", {
-                ascending: false
+                ascending: state.sort === "asc"
+            })
+            .range(offset, offset + PAGE_SIZE - 1);
+
+        const { data, error, count } = await query;
+
+        if (error) {
+            throw error;
+        }
+
+        return {
+            messages: data ?? [],
+            count: count ?? 0
+        };
+    }
+
+    // Search across all three tabs without changing their normal counts
+async function searchAllTabs() {
+    const term = state.search.trim();
+
+    if (!term) {
+        state.searchMode = false;
+        state.searchCount = 0;
+        await loadMessages();
+        return;
+    }
+
+    state.searchMode = true;
+    state.searchCount = 0;
+    state.busy = true;
+    clearNotice();
+    list.replaceChildren();
+
+    const loading = document.createElement("div");
+    loading.className = "empty";
+    loading.textContent = "Searching all petals…";
+    list.appendChild(loading);
+
+    try {
+        const tabs = ["approved", "deleted", "pending"];
+        const results = await Promise.all(
+            tabs.map(async tab => {
+                let query = db
+                    .from("petals")
+                    .select("*")
+                    .ilike("message", "%" + term + "%");
+
+                query = applyStatusFilter(query, tab);
+
+                const { data, error } = await query
+                    .order("created_at", {
+                        ascending: state.sort === "asc"
+                    })
+                    .limit(100);
+
+                if (error) throw error;
+
+                return (data ?? []).map(petal => ({
+                    ...petal,
+                    searchTab: tab
+                }));
+            })
+        );
+
+        const matches = results.flat();
+
+        matches.sort((a, b) => {
+            const difference =
+                new Date(a.created_at) - new Date(b.created_at);
+
+            return state.sort === "asc" ? difference : -difference;
+        });
+
+        state.searchCount = matches.length;
+        list.replaceChildren();
+
+        if (matches.length === 0) {
+            const empty = document.createElement("div");
+            empty.className = "empty";
+            empty.textContent = "No messages match this search.";
+            list.appendChild(empty);
+        } else {
+    matches.forEach(petal => {
+        const row = renderMessage(petal);
+        row.dataset.searchTab = petal.searchTab;
+        row.classList.add("search-result");
+
+        row.style.cursor = "pointer";
+        row.title = "Click to open this petal in its tab";
+
+        row.addEventListener("click", event => {
+            // Don't navigate when clicking an action button.
+            if (event.target.closest("button")) {
+                return;
+            }
+
+            // Leave search mode and open the correct tab.
+            state.searchMode = false;
+            state.search = "";
+            state.pages[petal.searchTab] = 0;
+
+            document.getElementById("search").value = "";
+            state.tab = petal.searchTab;
+
+            document.querySelectorAll(".tab").forEach(tab => {
+                tab.setAttribute(
+                    "aria-selected",
+                    String(tab.dataset.tab === petal.searchTab)
+                );
             });
 
-    if (error) {
-        console.error(
-            "Error loading petals:",
-            error
-        );
+            loadMessages();
+        });
 
-        return [];
+        list.appendChild(row);
+    });
+}
+        document.getElementById("page-info").textContent =
+            `${matches.length} search result${matches.length === 1 ? "" : "s"}`;
+
+        document.getElementById("previous").disabled = true;
+        document.getElementById("next").disabled = true;
+
+    } catch (error) {
+        console.error("Search failed:", error);
+        list.replaceChildren();
+        showNotice(
+            "Search failed. Please check your connection and try again.",
+            "error"
+        );
+    } finally {
+        state.busy = false;
+        updatePagination();
+    }
+}       
+
+    // Update the three tab counters
+    function updateCounts() {
+        ["approved", "deleted", "pending"].forEach(tab => {
+            document.getElementById("count-" + tab).textContent =
+                "(" + state.counts[tab] + ")";
+        });
     }
 
-    return data || [];
-}
+    // Update page number and navigation buttons
+    
+    function updatePagination() {
+        const activePageKey = state.searchMode ? "search" : state.tab;
+        const currentPage = state.pages[activePageKey];
 
+        const activeCount = state.searchMode
+            ? state.searchCount || 0
+            : state.counts[state.tab];
 
-/* =========================================
-   HTML SAFETY
-========================================= */
-
-function escapeHTML(text) {
-
-    const div =
-        document.createElement("div");
-
-    div.textContent = text;
-
-    return div.innerHTML;
-
-}
-
-
-/* =========================================
-   LOAD EVERYTHING
-========================================= */
-
-
-async function loadPetals() {
-
-    const allPetals =
-        await getPetals();
-
-
-    const pending =
-        allPetals
-            .map(
-                (petal, index) => ({
-                    petal,
-                    index
-                })
-            )
-            .filter(
-                item =>
-                    !item.petal.approved &&
-                    !item.petal.deleted_at
-            );
-
-
-    const approved =
-        allPetals
-            .map(
-                (petal, index) => ({
-                    petal,
-                    index
-                })
-            )
-            .filter(
-                item =>
-                    item.petal.approved &&
-                    !item.petal.deleted_at
-            );
-
-
-    const deleted =
-        allPetals
-            .map(
-                (petal, index) => ({
-                    petal,
-                    index
-                })
-            )
-            .filter(
-                item =>
-                    item.petal.deleted_at
-            );
-
-
-    document.getElementById(
-        "pendingCount"
-    ).textContent =
-        `(${pending.length})`;
-
-
-    document.getElementById(
-        "approvedCount"
-    ).textContent =
-        `(${approved.length})`;
-
-
-    document.getElementById(
-        "deletedCount"
-    ).textContent =
-        `(${deleted.length})`;
-
-
-    renderPending(pending);
-
-    renderApproved(approved);
-
-    renderDeleted(deleted);
-
-}
-
-
-/* =========================================
-   PENDING
-========================================= */
-
-function renderPending(petals) {
-
-    const container =
-        document.getElementById(
-            "pendingPetals"
+        const totalPages = Math.max(
+            1,
+            Math.ceil(activeCount / PAGE_SIZE)
         );
 
-    container.innerHTML = "";
+        document.getElementById("page-info").textContent =
+            `Page ${Math.min(currentPage + 1, totalPages)} of ${totalPages}`;
 
+        document.getElementById("previous").disabled =
+            state.busy || state.actionBusy || currentPage === 0;
 
-    if (petals.length === 0) {
+        document.getElementById("next").disabled =
+            state.busy ||
+            state.actionBusy ||
+            currentPage + 1 >= totalPages;
 
-        container.innerHTML =
-            '<div class="empty">No petals waiting for review.</div>';
+        document.getElementById("refresh").disabled = state.busy;
 
-        return;
-
+        document.getElementById("deleted-warning").hidden =
+            state.searchMode || state.tab !== "deleted";
     }
 
 
-    petals.forEach(
-        ({ petal, index }) => {
+    // Render a message safely, with no action buttons yet
+   
+function renderMessage(petal) {
+    const row = document.createElement("article");
+    row.className = "petal-row";
 
-            const card =
-                document.createElement(
-                    "div"
-                );
+    const content = document.createElement("div");
 
-            card.className =
-                "petal-card";
+    const message = document.createElement("div");
+    message.className = "message";
+    message.textContent = petal.message ?? "";
 
+    const meta = document.createElement("div");
+    meta.className = "meta";
 
-            const date =
-                new Date(
-                    petal.created_at
-                );
+    const createdAt = formatDate(petal.created_at);
+    meta.textContent = `Submitted: ${createdAt}`;
 
+    content.append(message, meta);
 
-            card.innerHTML = `
+    const actions = document.createElement("div");
+    actions.className = "actions";
 
-                <div class="message">
-                    ${escapeHTML(
-                        petal.message
-                    )}
-                </div>
+    function addButton(label, className, action) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = className;
+        button.textContent = label;
 
-                <div class="date">
-                    Submitted
-                    ${date.toLocaleString()}
-                </div>
+        button.addEventListener("click", () => {
+            handlePetalAction(petal, action);
+        });
 
-                <button
-                    class="approve"
-                >
-                    Approve
-                </button>
+        actions.appendChild(button);
+    }
 
-                <button
-                    class="delete"
-                >
-                    Delete
-                </button>
+    if (state.tab === "approved") {
+        addButton("Move to Deleted", "delete", "delete");
+    } else if (state.tab === "pending") {
+        addButton("Approve", "approve", "approve");
+        addButton("Move to Deleted", "delete", "delete");
+    } else if (state.tab === "deleted") {
+        addButton("Restore", "restore", "restore");
+        addButton("Delete permanently", "permanent-delete", "permanent-delete");
 
-            `;
+        const countdown = document.createElement("div");
+        countdown.className = "meta";
+        countdown.dataset.deletedAt = petal.deleted_at;
+        countdown.setAttribute("aria-live", "off");
+        content.appendChild(countdown);
+    }
 
-
-            card
-                .querySelector(".approve")
-                .addEventListener(
-                    "click",
-                    () =>
-                        approvePetal(index)
-                );
-
-
-            card
-                .querySelector(".delete")
-                .addEventListener(
-                    "click",
-                    () =>
-                        deletePetal(index)
-                );
+    row.append(content, actions);
+    return row;
+}
 
 
-            container.appendChild(card);
-
+    // Load the current tab from Supabase
+    async function loadMessages() {
+        if (state.busy) {
+            return;
         }
+
+        state.busy = true;
+        clearNotice();
+
+        list.replaceChildren();
+
+        const loading = document.createElement("div");
+        loading.className = "empty";
+        loading.textContent = "Gathering the petals…";
+        list.appendChild(loading);
+
+        updatePagination();
+
+        try {
+            // Fetch tab counts only if they haven't been loaded yet.
+const countsNeedLoading = ["approved", "deleted", "pending"].some(
+    tab => state.counts[tab] === null
+);
+
+if (countsNeedLoading) {
+    const tabs = ["approved", "deleted", "pending"];
+
+    const counts = await Promise.all(
+        tabs.map(tab => fetchCount(tab))
     );
 
+    tabs.forEach((tab, index) => {
+        state.counts[tab] = counts[index];
+    });
 }
-
-
-/* =========================================
-   APPROVED
-========================================= */
-
-function renderApproved(petals) {
-
-    const container =
-        document.getElementById(
-            "approvedPetals"
-        );
-
-    container.innerHTML = "";
-
-
-    if (petals.length === 0) {
-
-        container.innerHTML =
-            '<div class="empty">No approved petals yet.</div>';
-
-        return;
-
-    }
-
-
-    petals.forEach(
-        ({ petal, index }) => {
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-            card.className =
-                "petal-card";
-
-
-            const date =
-                new Date(
-                    petal.created_at
-                );
-
-
-            card.innerHTML = `
-
-                <div class="message">
-                    ${escapeHTML(
-                        petal.message
-                    )}
-                </div>
-
-                <div class="date">
-                    Submitted
-                    ${date.toLocaleString()}
-                </div>
-
-                <button
-                    class="delete"
-                >
-                    Delete
-                </button>
-
-            `;
-
-
-            card
-                .querySelector(".delete")
-                .addEventListener(
-                    "click",
-                    () =>
-                        deletePetal(index)
-                );
-
-
-            container.appendChild(card);
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   DELETED
-========================================= */
-
-function renderDeleted(petals) {
-
-    const container =
-        document.getElementById(
-            "deletedPetals"
-        );
-
-    container.innerHTML = "";
-
-
-    if (petals.length === 0) {
-
-        container.innerHTML =
-            '<div class="empty">Nothing recently deleted.</div>';
-
-        return;
-
-    }
-
-
-    petals.forEach(
-        ({ petal, index }) => {
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-            card.className =
-                "petal-card";
-
-
-            const deletedTime =
-                new Date(
-                    petal.deleted_at
-                );
-
-
-            const expiresAt =
-                new Date(
-                    deletedTime.getTime() +
-                    72 * 60 * 60 * 1000
-                );
-
-
-            card.innerHTML = `
-
-                <div class="message">
-                    ${escapeHTML(
-                        petal.message
-                    )}
-                </div>
-
-                <div class="deleted-date">
-                    Deleted
-                    ${deletedTime.toLocaleString()}
-                    <br><br>
-                    Permanently removed after
-                    ${expiresAt.toLocaleString()}
-                </div>
-
-                <button class="restore">
-                    Restore
-                </button>
-
-                <button class="permanent-delete">
-                    Delete permanently
-                </button>
-
-            `;
-
-
-            card
-                .querySelector(".restore")
-                .addEventListener(
-                    "click",
-                    () =>
-                        restorePetal(index)
-                );
-
-
-            card
-                .querySelector(".permanent-delete")
-                .addEventListener(
-                    "click",
-                    () =>
-                        permanentlyDeletePetal(index)
-                );
-
-
-            container.appendChild(card);
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   APPROVE
-========================================= */
-
-async function approvePetal(index) {
-
-    const petals =
-        await getPetals();
-
-
-    if (!petals[index]) {
-        return;
-    }
-
-
-    petals[index].approved =
-        true;
-
-
-    await supabaseClient
-    .from("petals")
-    .update({ approved: true })
-    .eq("id", petals[index].id);
-
-    loadPetals();
-
-}
-
-
-/* =========================================
-   DELETE → 72 HOUR TRASH
-========================================= */
-
-async function deletePetal(index) {
-
-    const petals =
-        await getPetals();
-
-
-    if (!petals[index]) {
-        return;
-    }
-
-
-    const deletedAt =
-        new Date().toISOString();
-
-
-    const { error } =
-        await supabaseClient
-            .from("petals")
-            .update({
-                deleted_at: deletedAt
-            })
-            .eq(
-                "id",
-                petals[index].id
+            // Keep the current page within the available range
+            const activePageKey = state.searchMode ? "search" : state.tab;
+            const activeCount = state.searchMode
+                ? state.searchCount || 0
+                : state.counts[state.tab];
+
+            const lastPage = Math.max(
+                0,
+                Math.ceil(activeCount / PAGE_SIZE) - 1
             );
 
-
-    if (error) {
-
-        console.error(
-            "Delete error:",
-            error
-        );
-
-        return;
-
-    }
-
-
-    loadPetals();
-
-}
-
-/* =========================================
-   RESTORE
-========================================= */
-
-async function restorePetal(index) {
-
-    const petals =
-        await getPetals();
-
-
-    if (!petals[index]) {
-        return;
-    }
-
-
-    await supabaseClient
-    .from("petals")
-    .update({
-        deleted_at: null
-    })
-    .eq("id", petals[index].id);
-
-    loadPetals();
-
-}
-
-
-/* =========================================
-   PERMANENT DELETE
-========================================= */
-
-async function permanentlyDeletePetal(index) {
-
-    const confirmed =
-        confirm(
-            "Permanently delete this petal?"
-        );
-
-
-    if (!confirmed) {
-        return;
-    }
-
-
-    const petals =
-        await getPetals();
-
-
-    if (!petals[index]) {
-        return;
-    }
-
-
-    const petalId =
-        petals[index].id;
-
-
-    const { error } =
-        await supabaseClient
-            .from("petals")
-            .delete()
-            .eq(
-                "id",
-                petalId
+            state.pages[activePageKey] = Math.min(
+                state.pages[activePageKey],
+                lastPage
             );
 
+            const result = await fetchCurrentPage();
 
-    if (error) {
+            if (state.searchMode) {
+                state.searchCount = result.count;
+            } else {
+                state.counts[state.tab] = result.count;
+            }
 
-        console.error(
-            "Permanent delete error:",
-            error
-        );
+            updateCounts();
 
-        return;
+            list.replaceChildren();
 
+            if (result.messages.length === 0) {
+                const empty = document.createElement("div");
+                empty.className = "empty";
+                empty.textContent = state.search.trim()
+                    ? "No messages match this search."
+                    : "Nothing here just yet.";
+
+                list.appendChild(empty);
+            } else {
+                result.messages.forEach(petal => {
+                    list.appendChild(renderMessage(petal));
+                });
+            }
+
+        } catch (error) {
+            console.error("Could not load petals:", error);
+
+            list.replaceChildren();
+
+            showNotice(
+                "Could not load petals. Your messages have not been changed. " +
+                "Check your connection and admin access, then try Refresh.",
+                "error"
+            );
+
+        } finally {
+            state.busy = false;
+            updatePagination();
+        }
     }
 
+    // Switch between the three tabs
+    document.querySelectorAll(".tab").forEach(button => {
+        button.addEventListener("click", () => {
+            if (state.busy || state.actionBusy) {
+            return;
+        }
 
-    loadPetals();
+            state.tab = button.dataset.tab;
 
-}
+            document.querySelectorAll(".tab").forEach(tab => {
+                tab.setAttribute(
+                    "aria-selected",
+                    String(tab === button)
+                );
+            });
 
+            loadMessages();
+        });
+    });
 
-/* =========================================
-   START
-========================================= */
+   // Refresh button: reload tab counts and messages
+document.getElementById("refresh").addEventListener("click", () => {
+    if (state.busy || state.actionBusy) return;
 
-requireAdminLogin().then(isAdmin => {
+    state.counts.approved = null;
+    state.counts.deleted = null;
+    state.counts.pending = null;
 
-    if (isAdmin) {
-        loadPetals();
-    }
-
+    loadMessages();
 });
 
-</script>
+    // Previous page
+    document.getElementById("previous").addEventListener(
+        "click",
+        () => {
+            if (!state.busy && !state.actionBusy && state.pages[state.tab] > 0) {
+            state.pages[state.tab]--;
+            loadMessages();
+             }   
+        }
+    );
 
+    // Next page
+    document.getElementById("next").addEventListener(
+        "click",
+        () => {
+           if (
+            !state.busy &&
+            !state.actionBusy &&
+            (state.pages[state.tab] + 1) * PAGE_SIZE < state.counts[state.tab]
+        ) {
+            state.pages[state.tab]++;
+            loadMessages();
+        }
+        }
+    );
+
+    // Search, with a short delay while typing
+   // Search across all three tabs, with a short delay while typing
+let searchTimer;
+
+document.getElementById("search").addEventListener(
+    "input",
+    event => {
+        clearTimeout(searchTimer);
+
+        state.search = event.target.value;
+
+        state.pages = {
+            approved: 0,
+            deleted: 0,
+            pending: 0
+        };
+
+        searchTimer = setTimeout(() => {
+            if (state.search.trim()) {
+                searchAllTabs();
+            } else {
+                state.searchMode = false;
+                state.searchCount = 0;
+                loadMessages();
+            }
+        }, 250);
+    }
+);
+
+
+    // Sort newest first or oldest first
+    document.getElementById("sort").addEventListener(
+        "change",
+        event => {
+            state.sort = event.target.value;
+
+            state.pages = {
+                approved: 0,
+                deleted: 0,
+                pending: 0
+            };
+
+            loadMessages();
+        }
+    );
+
+    // Start only after verifying the admin session
+
+
+function updateCountdowns() {
+    const now = Date.now();
+
+    document.querySelectorAll("[data-deleted-at]").forEach(element => {
+        const deletedAt = element.dataset.deletedAt;
+        const deletedTime = new Date(deletedAt).getTime();
+        const remaining = TRASH_MS - (now - deletedTime);
+
+        if (!Number.isFinite(deletedTime)) {
+            element.textContent = "Deletion date unavailable";
+            return;
+        }
+
+        if (remaining <= 0) {
+            element.textContent = "Recovery window has ended";
+            return;
+        }
+
+        const totalSeconds = Math.floor(remaining / 1000);
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        element.textContent =
+            `Recovery time left: ${hours}h ${minutes}m ${seconds}s`;
+    });
+}
+
+async function handlePetalAction(petal, action) {
+    if (state.actionBusy || state.busy) return;
+
+    const messages = {
+        approve: {
+            question: "Approve this petal and make it public?",
+            success: "Petal approved."
+        },
+        delete: {
+            question: "Move this petal to Deleted? You can restore it within 72 hours.",
+            success: "Petal moved to Deleted."
+        },
+        restore: {
+            question: "Restore this petal?",
+            success: "Petal restored."
+        },
+        "permanent-delete": {
+            question: "Permanently delete this petal? This cannot be undone.",
+            success: "Petal permanently deleted."
+        }
+    };
+
+    const choice = messages[action];
+
+    if (!choice) {
+        showNotice("Unknown action. No changes were made.", "error");
+        return;
+    }
+
+    if (!window.confirm(choice.question)) return;
+
+    state.actionBusy = true;
+
+    document.querySelectorAll(".actions button").forEach(button => {
+        button.disabled = true;
+    });
+
+    try {
+        let result;
+
+        if (action === "approve") {
+            result = await db
+                .from("petals")
+                .update({ approved: true })
+                .eq("id", petal.id)
+                .eq("approved", false)
+                .is("deleted_at", null)
+                .select("id");
+        } else if (action === "delete") {
+            result = await db
+                .from("petals")
+                .update({ deleted_at: new Date().toISOString() })
+                .eq("id", petal.id)
+                .is("deleted_at", null)
+                .select("id");
+        } else if (action === "restore") {
+            result = await db
+                .from("petals")
+                .update({ deleted_at: null })
+                .eq("id", petal.id)
+                .not("deleted_at", "is", null)
+                .select("id");
+        } else {
+            result = await db
+                .from("petals")
+                .delete()
+                .eq("id", petal.id)
+                .not("deleted_at", "is", null)
+                .select("id");
+        }
+
+        if (result.error) {
+            throw result.error;
+        }
+
+        if (!result.data || result.data.length === 0) {
+            throw new Error(
+                "No row was changed. Your permissions or the petal's current status may have prevented the action."
+            );
+        }
+
+        // Refresh tab counts after a successful change.
+state.counts.approved = null;
+state.counts.deleted = null;
+state.counts.pending = null;
+
+await loadMessages();
+showNotice(choice.success, "info");
+    } catch (error) {
+        console.error("Petal action failed:", error);
+        showNotice(
+            `The action could not be completed. Please refresh and check the petal's status.\n${error.message || "Unknown error"}`,
+            "error"
+        );
+    } finally {
+        state.actionBusy = false;
+        document.querySelectorAll(".actions button").forEach(button => {
+            button.disabled = false;
+        });
+    }
+}
+
+setInterval(updateCountdowns, 1000);
+
+
+    requireAdminLogin().then(isAdmin => {
+        if (isAdmin) {
+            loadMessages();
+        }
+    });
+</script>
 </body>
 </html>
