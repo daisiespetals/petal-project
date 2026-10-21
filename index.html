@@ -2452,199 +2452,67 @@ if (approvedPetals.length > 0) {
    CREATE APPROVED PETAL
 ========================= */
 
-function createApprovedPetal(
-    petal
-) {
 
-    const newPetal =
-        document.createElement(
-            "img"
-        );
+function createApprovedPetal(petal) {
+    const newPetal = document.createElement("img");
 
+    newPetal.className = "approved-petal";
+    newPetal.dataset.message = petal.message;
 
-    newPetal.className =
-        "approved-petal";
-
-
-    // Remember which message this petal represents
-    newPetal.dataset.message =
-        petal.message;
-
-
-    // Random hand-drawn petal
+    // Choose a random petal illustration
     const randomPetal =
-        petalImages[
-            Math.floor(
-                Math.random() *
-                petalImages.length
-            )
-        ];
+        petalImages[Math.floor(Math.random() * petalImages.length)];
 
-
-    newPetal.src =
-        `petals/${randomPetal}`;
-
-
-    newPetal.alt =
-        "A petal";
-
+    newPetal.src = `petals/${randomPetal}`;
+    newPetal.alt = "A petal";
 
     // Random position
-    const top =
-        8 +
-        Math.random() * 84;
+    const top = 8 + Math.random() * 84;
+    const left = 4 + Math.random() * 92;
 
+    newPetal.style.top = `${top}%`;
+    newPetal.style.left = `${left}%`;
 
-    const left =
-        4 +
-        Math.random() * 92;
+    // Random rotation and gentle movement
+    const rotation = Math.floor(Math.random() * 360);
+    const moveX = (Math.random() - 0.5) * 80;
+    const moveY = (Math.random() - 0.5) * 80;
+    const speed = 8 + Math.random() * 8;
+    const delay = Math.random() * -8;
 
+    newPetal.style.setProperty("--rotation", `${rotation}deg`);
+    newPetal.style.setProperty("--move-x", `${moveX}px`);
+    newPetal.style.setProperty("--move-y", `${moveY}px`);
+    newPetal.style.setProperty("--speed", `${speed}s`);
+    newPetal.style.setProperty("--delay", `${delay}s`);
 
-    newPetal.style.top =
-        `${top}%`;
+    // Open the message when the petal is clicked
+    newPetal.addEventListener("click", () => {
+        const date = new Date(petal.created_at);
 
-
-    newPetal.style.left =
-        `${left}%`;
-
-
-    // Random rotation
-    const rotation =
-        Math.floor(
-            Math.random() * 360
-        );
-
-
-    // Random movement
-    const moveX =
-        (Math.random() - 0.5) *
-        80;
-
-
-    const moveY =
-        (Math.random() - 0.5) *
-        80;
-
-
-    // Random speed
-    const speed =
-        8 +
-        Math.random() * 8;
-
-
-    // Random animation starting point
-    const delay =
-        Math.random() * -8;
-
-
-    newPetal.style.setProperty(
-        "--rotation",
-        `${rotation}deg`
-    );
-
-
-    newPetal.style.setProperty(
-        "--move-x",
-        `${moveX}px`
-    );
-
-
-    newPetal.style.setProperty(
-        "--move-y",
-        `${moveY}px`
-    );
-
-
-    newPetal.style.setProperty(
-        "--speed",
-        `${speed}s`
-    );
-
-
-    newPetal.style.setProperty(
-        "--delay",
-        `${delay}s`
-    );
-
-
-    // Click the petal
-    newPetal.addEventListener(
-        "click",
-        () => {
-
-            const date =
-                new Date(
-                    petal.created_at
-                );
-
-
-            const formattedDate =
-                date.toLocaleDateString(
-                    undefined,
-                    {
-                        year: "numeric",
-
-                        month: "long",
-
-                        day: "numeric"
-                    }
-                );
-
-
-            openModal(`
-
-                <p class="petal-message">
-
-                    ${escapeHTML(
-                        petal.message
-                    )}
-
-                </p>
-
-                <p class="petal-date">
-
-                    This petal bloomed on
-                    ${formattedDate}.
-
-                </p>
-
-            `);
-
-        }
-    );
-
-
-    document
-        .querySelector(
-            ".page"
-        )
-        .appendChild(
-            newPetal
-        );
-
-
-    // The petal stays for a random amount
-    // of time before leaving.
-    const lifetime =
-        15000 +
-        Math.random() * 15000;
-
-
-    setTimeout(
-        () => {
-
-            if (
-                newPetal.parentNode
-            ) {
-
-                newPetal.remove();
-
+        const formattedDate = date.toLocaleDateString(
+            undefined,
+            {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
             }
+        );
 
-        },
-        lifetime
-    );
+        openModal(`
+            <p class="petal-message">
+                ${escapeHTML(petal.message)}
+            </p>
 
+            <p class="petal-date">
+                This petal bloomed on ${formattedDate}.
+            </p>
+        `);
+    });
+
+    // Add the petal to the page.
+    // Important: there is no automatic removal timer.
+    document.querySelector(".page").appendChild(newPetal);
 }
 
 
@@ -2652,88 +2520,44 @@ function createApprovedPetal(
    CONTINUOUS PETAL ROTATION
 ========================= */
 
-function startPetalRotation(
-    approvedPetals
-) {
+function startPetalRotation(approvedPetals) {
+    const isMobile = window.innerWidth <= 800;
+    const MAX_VISIBLE = isMobile ? 25 : 75;
 
-    const isMobile =
-        window.innerWidth <= 800;
+    setInterval(() => {
+        const currentPetals =
+            document.querySelectorAll(".approved-petal");
 
+        // Don't exceed the display limit
+        if (currentPetals.length >= MAX_VISIBLE) {
+            return;
+        }
 
-    const MAX_VISIBLE =
-        isMobile ? 25 : 75;
+        // Find messages not currently displayed
+        const visibleMessages = Array.from(currentPetals)
+            .map(petal => petal.dataset.message);
 
+        const available = approvedPetals.filter(
+            petal => !visibleMessages.includes(petal.message)
+        );
 
-    setInterval(
-        () => {
+        if (available.length === 0) {
+            return;
+        }
 
-            const currentPetals =
-                document.querySelectorAll(
-                    ".approved-petal"
-                );
+        // Add another approved petal if space is available
+        const nextPetal =
+            available[Math.floor(Math.random() * available.length)];
 
-
-            // Never exceed the maximum
-            if (
-                currentPetals.length >=
-                MAX_VISIBLE
-            ) {
-
-                return;
-
-            }
-
-
-            // Messages currently visible
-            const visibleMessages =
-                Array.from(
-                    currentPetals
-                ).map(
-                    petal =>
-                        petal.dataset.message
-                );
-
-
-            // Find petals that aren't
-            // currently on screen
-            const available =
-                approvedPetals.filter(
-                    petal =>
-                        !visibleMessages.includes(
-                            petal.message
-                        )
-                );
-
-
-            if (
-                available.length === 0
-            ) {
-
-                return;
-
-            }
-
-
-            // Choose a random new petal
-            const nextPetal =
-                available[
-                    Math.floor(
-                        Math.random() *
-                        available.length
-                    )
-                ];
-
-
-            createApprovedPetal(
-                nextPetal
-            );
-
-        },
-
-        4000
-    );
-
+        createApprovedPetal(nextPetal);
+    }, 4000);
 }
+
+
+
+/* =========================
+   CONTINUOUS PETAL ROTATION
+========================= */
 
 
 /* =========================
