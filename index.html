@@ -2439,18 +2439,11 @@ async function showApprovedPetals() {
     );
 
 
-    // Only start rotation if there
-    // are more petals available
-    if (
-        approvedPetals.length >
-        visibleCount
-    ) {
-
-        startPetalRotation(
-            approvedPetals
-        );
-
-    }
+    // Always start rotation so petals
+// are replaced after they disappear.
+if (approvedPetals.length > 0) {
+    startPetalRotation(approvedPetals);
+}
 
 }
 
