@@ -2520,6 +2520,8 @@ function createApprovedPetal(petal) {
    CONTINUOUS PETAL ROTATION
 ========================= */
 
+
+
 function startPetalRotation(approvedPetals) {
     const isMobile = window.innerWidth <= 800;
     const MAX_VISIBLE = isMobile ? 25 : 75;
@@ -2528,12 +2530,13 @@ function startPetalRotation(approvedPetals) {
         const currentPetals =
             document.querySelectorAll(".approved-petal");
 
-        // Don't exceed the display limit
+        // Keep the existing petals visible.
+        // Never add duplicate messages.
+        // Never remove petals just to replace them.
         if (currentPetals.length >= MAX_VISIBLE) {
             return;
         }
 
-        // Find messages not currently displayed
         const visibleMessages = Array.from(currentPetals)
             .map(petal => petal.dataset.message);
 
@@ -2545,13 +2548,14 @@ function startPetalRotation(approvedPetals) {
             return;
         }
 
-        // Add another approved petal if space is available
+        // Add one new, unique approved message.
         const nextPetal =
             available[Math.floor(Math.random() * available.length)];
 
         createApprovedPetal(nextPetal);
-    }, 4000);
+    }, 1000);
 }
+
 
 
 
