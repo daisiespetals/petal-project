@@ -2466,12 +2466,39 @@ function createApprovedPetal(petal) {
     newPetal.src = `petals/${randomPetal}`;
     newPetal.alt = "A petal";
 
-    // Random position
-    const top = 8 + Math.random() * 84;
-    const left = 4 + Math.random() * 92;
+    
+/* Position petals away from the writing area on mobile */
+let top;
+let left;
 
-    newPetal.style.top = `${top}%`;
-    newPetal.style.left = `${left}%`;
+if (window.innerWidth <= 800) {
+    // Keep petals around the edges on mobile.
+    // Avoid the central area where visitors write messages.
+    const useSide = Math.random() < 0.5;
+
+    top = 8 + Math.random() * 84;
+
+    if (useSide) {
+        left = Math.random() < 0.5
+            ? 2 + Math.random() * 16
+            : 82 + Math.random() * 14;
+    } else {
+        // Petals can appear above or below the writing area.
+        top = Math.random() < 0.5
+            ? 3 + Math.random() * 12
+            : 82 + Math.random() * 14;
+
+        left = 8 + Math.random() * 84;
+    }
+} else {
+    // Keep the existing desktop positioning.
+    top = 8 + Math.random() * 84;
+    left = 4 + Math.random() * 92;
+}
+
+newPetal.style.top = `${top}%`;
+newPetal.style.left = `${left}%`;
+
 
     // Random rotation and gentle movement
     const rotation = Math.floor(Math.random() * 360);
